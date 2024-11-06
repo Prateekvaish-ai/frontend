@@ -2,6 +2,20 @@
 import React from 'react'
 
 const EventHandling = () => {
+
+  const previewImage = (e) => {
+    const file = e.target.files[0];
+
+    const reader = new FileReader();
+    reader.onload = (data) => {
+      const img = new Image();
+      img.src = data.target.result;
+      document.body.appendchild(img);
+  }
+
+  reader.readAsDataURL(file);
+}
+
   return (
     <div>
       
@@ -20,9 +34,11 @@ const EventHandling = () => {
     onChange={(e) => { console.log(document.body.style.backgroundColor = e.target.value);}}
     className='mt-5' type="color" />
 
+<input type="file" onChange={previewImage} />
       </div>
     </div>
   )
 }
+
 
 export default EventHandling;
