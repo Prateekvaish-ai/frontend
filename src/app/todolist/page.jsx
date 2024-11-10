@@ -27,7 +27,22 @@ const Todolist = () => {
         e.target.value = '';
       }
     }
-  return (
+
+    const deleteTask = (index) => {
+      console.log(index);
+
+      const temp = taskList;
+      temp.splice(index, 1);
+      setTaskList([...temp]);
+    };
+
+    const updateTask = (index) => {
+      const temp = taskList;
+      temp[index].completed = !temp[index].completed;
+      setTaskList([...temp]);
+    }
+  
+    return (
     <div className='bg-gray-300 h-screen pt-10'>
       
       <div className='container mx-auto rounded-lg bg-white border'>
@@ -44,11 +59,19 @@ const Todolist = () => {
        <div className='p-4'>
          {
           taskList.map( (task, index) => { return <div key={index} className='rounded mb-4 p-4 border shadow'>
+            
+            {task.completed ? (
+              <p className='bg-green-700 text-white w-fit rounded-full px-2'>Completed</p>
+            ) : (
+              <p className='bg-yellow-600 text-white w-fit rounded-full px-2'>Pending</p>
+            ) }
             <p className='text-xl'>{task.text}</p>
 
+
+
             <div className='mt-5 flex gap-5'>
-               <button className='bg-red-500 text-white rounded-full px-3 py-1'>Delete</button>
-               <button className='bg-blue-500 text-white rounded-full px-3 py-1'>Complete</button>
+               <button onClick={ () => { deleteTask(index) }} className='bg-red-500 text-white rounded-full px-3 py-1'>Delete</button>
+               <button onClick={ () => { updateTask(index)}} className='bg-blue-500 text-white rounded-full px-3 py-1'>Complete</button>
             </div>
           </div>} )
          } 
